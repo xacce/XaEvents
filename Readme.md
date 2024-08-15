@@ -1,13 +1,14 @@
-﻿## Смысл
+﻿## idea
 
-Крайне спорная, но тем не менее предоставляющая некоторую структуру для коммуникаций между Dots/Mono миром.
-Я ее использую для коммуникации между Dots и UiToolkit.
+Extremely controversial, but nevertheless provides some structure for communication between the Dots/Mono world. I use it for communication between Dots and UiToolkit.
 
-Не вынесена в пакет т.к подразумевает работу с partial.
+It is not included in the package because it implies working with partial.
 
-Создает в проекте единую энтити с двумя полиморфными буферами. Один содержит события из мира dots, другой содержит события из мира Mono
+It creates a single entity in the project with two polymorphic buffers. One contains events from the dots world, the other contains events from the Mono world
 
-Так обьявляются события из мира Dots
+This is how events from the Dots world are announced
+
+Translated with DeepL.com (free version)
 
 ```csharp
     [PolymorphicStruct]
@@ -17,7 +18,7 @@
     }
 ```
 
-Так обьявляются события из мира Mono, обрати внимание, что обработчик события находится тут же.
+This is how events from the Mono world are announced, note that the event handler is right there.
 
 ```csharp
  [PolymorphicStruct]
@@ -35,8 +36,8 @@ public partial struct XaMonoChangeGameSpeedEvent : IXaMonoEvent
 }
 ```
 
-```XaDotsGlobalContext``` это условно-глобальный контекст поставляемый из мира Dots в мир Mono. Он не содержит данных по конкретному событию, а скорей является хранилищем
-каких-либо часто используемых Entity, данные и проч
+```XaDotsGlobalContext``` is a conditionally global context delivered from the Dots world to the Mono world. It does not contain event-specific data, but rather is a repository of any commonly used Entity, data, and so on.
+of any frequently used Entity, data, etc
 
 Так его расширять
 
@@ -47,7 +48,7 @@ public partial struct XaDotsGlobalContext
 }
 ```
 
-Стоит понимать, что заполнять этот контекст сам не будет и тебе нужно будет его чем-то заполнить
+It's worth realizing that it won't fill that context itself and you'll need to fill it with something
 
 ```csharp
  [BurstCompile]
@@ -76,7 +77,7 @@ public partial struct XaDotsGlobalContext
     }
 ```
 
-Далее - обработа событии на стороне Mono
+Next - event processing on the Mono side
 
 ```csharp
 public class GameMain : XaEventAbstractDispatcher
@@ -112,4 +113,4 @@ public class GameMain : XaEventAbstractDispatcher
     }
 ```
 
-Не забудь добавить авторинг куда-нибудь ```XaEventsRootEntity```
+Don't forget to add authoring somewhere ```XaEventsRootEntity```
