@@ -6,9 +6,10 @@ It is not included in the package because it implies working with partial.
 
 It creates a single entity in the project with two polymorphic buffers. One contains events from the dots world, the other contains events from the Mono world
 
+
+Install `https://github.com/PhilSA/Trove.git?path=/com.trove.polymorphicstructs`
 This is how events from the Dots world are announced
 
-Translated with DeepL.com (free version)
 
 ```csharp
     [PolymorphicStruct]
